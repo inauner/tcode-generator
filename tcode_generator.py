@@ -6,27 +6,6 @@ import sys
 #arduino COM port
 COM = 'COM4'
 
-
-def OSR3():
-    last_vertDist=0
-    with serial.Serial(COM,115200,timeout=1,parity=serial.PARITY_EVEN,rtscts=1) as ser:
-        while True:
-            vertDist = random.randint(1,999)/1000 #need to make it a float for min. vert stroke distance
-            vertDur = random.randint(100,900)
-            horDist = random.randint(0,99)
-            horDur = random.randint(100,900)
-            #make sure vertical stroke distance is at least 25 between commands
-            while abs(vertDist-last_vertDist)<.250:
-                vertDist = random.randint(0,50)
-            vertDist = vertDist * 1000
-            i = b'L0%dI%d&L1%dI%d\n' % (vertDist, vertDur, horDist, horDur)
-            print(i)
-            ser.write(i)
-            #wait for motion to finish before sending next command
-            delay = max(vertDur,horDur)/1000
-            last_vertDist = vertDist
-            time.sleep(delay)
-
 def OSR2():
     last_vertDist=1
     last_grindDist=500
