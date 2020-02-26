@@ -15,7 +15,7 @@ def convert(input,output):
         pos = pos * 1000
         at = action['at']
         i = "L0%dI%d" %(pos,at-last_at)
-        print(i)
+        # print(i)
         f.write(i+'\n')
         last_at = at
         
