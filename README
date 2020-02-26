@@ -1,3 +1,14 @@
-todo:
+Change "COM=" line to match your COM port.
 
-make a README
+tcode_generator.py
+Random OSR2 movements  for L0 and R1
+
+funscript_tcode_converter.py
+Converts a funscript file to a list of tcode commands
+usage: python funscript_tcode_converter.py myscript.funscript myscript.tcode
+optionally: drag a funscript onto python script and the tcode file will be automatically created as "output.tcode"
+
+tcode_replay.py
+Plays back a tcode file, or a list of tcode commands written 1 per line.
+usage: python tcode_replay.py example.tcode
+optionally: drag a funscript onto python script and it will automatically start
