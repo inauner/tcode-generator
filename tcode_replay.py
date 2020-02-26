@@ -18,9 +18,7 @@ def tcode_replay(filename):
             interval = max(findmax)
             line = b"%s\n" %(line)
             ser.write(line)
-            interval = float(interval)/1000
-            print(interval)
-            time.sleep(interval)
+            time.sleep(float(interval)/1000)
         
         
 if __name__ == '__main__':
