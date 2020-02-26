@@ -49,8 +49,8 @@ def OSRgrind():
 def OSR2():
     min_range=100
     max_range=699
-    min_time=200
-    max_time=700
+    min_time=400
+    max_time=1100
     last_vertDist=0
     last_grindDist=500
     with serial.Serial(COM,115200,timeout=1,parity=serial.PARITY_EVEN,rtscts=1) as ser:
@@ -66,19 +66,15 @@ def OSR2():
                 
             vertDist = vertDist * 1000
             #randomize a grinding motion
-            ranRotate = random.randint(3,3)
+            ranRotate = random.randint(1,10)
             if ranRotate == 1:
-                OSRgrindLeft()
-                OSRgrindRight()
-                #i = b'L0%dI%d&R1%dI%d\n' % (vertDist, vertDur, grindDist, grindDur)
-            elif ranRotate == 2:
                 #make sure grind stroke alternates above / below .5 
                 if last_grindDist >=500:
-                    grindDist = random.randint(1,400)
+                    grindDist = random.randint(1,200)
                 else: 
-                    grindDist = random.randint(600,999)
+                    grindDist = random.randint(800,999)
                 last_grindDist = grindDist
-                i = b'R1%dI%d\n' % (grindDist, grindDur)
+                i = b'L0%dI%dR1%dI%d\n' % (vertDist, vertDur, grindDist, grindDur)
             else:
                 i = b'L0%dI%d\n' % (vertDist, vertDur)
             print(i)
