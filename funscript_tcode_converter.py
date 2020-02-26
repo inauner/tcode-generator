@@ -11,10 +11,13 @@ def convert(input,output):
         pos = float(action['pos'])/100
         if pos == 1.0:
             pos = 0.999
-        print action
-        print pos
+        pos = pos * 1000
+        # print action
+        # print pos
         at = action['at']
+        
         i = "L0%dI%d" %(pos,at-last_at)
+        print i
         f.write(i+'\n')
         last_at = at
         
