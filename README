@@ -12,4 +12,4 @@ optionally: drag a funscript onto python script and the tcode file will be autom
 tcode_replay.py
 Plays back a tcode file, or a list of tcode commands written 1 per line.
 usage: python tcode_replay.py example.tcode
-optionally: drag a funscript onto python script and it will automatically start
+optionally: drag a tcode file onto python script and it will automatically start
