@@ -1,4 +1,5 @@
 Change "COM=" line to match your COM port.
+ctrl+c to abort python scripts
 
 tcode_generator.py
 Random OSR2 movements  for L0 and R1
