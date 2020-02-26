@@ -16,8 +16,11 @@ def tcode_replay(filename):
             for tuple in tuples:
                 findmax.append(int(tuple[1]))
             interval = max(findmax)
-            ser.write(line + "\n")
-            time.sleep(float(interval)/1000)
+            line = b"%s\n" %(line)
+            ser.write(line)
+            interval = float(interval)/1000
+            print(interval)
+            time.sleep(interval)
         
         
 if __name__ == '__main__':
