@@ -4,7 +4,7 @@ import os
 
 def convert(input,output):
     data = json.load(open(input, 'r'))
-    actions = (data)['rawActions']
+    actions = (data)['actions']
     f = open(output,'w')
     last_at=0
 
