@@ -57,7 +57,9 @@ def OSR2():
         while True:
             vertDist = float(random.randint(min_range,max_range))/1000 #need to make it a float for min. vert stroke distance
             vertDur = random.randint(min_time,max_time) #length of time in ms for a stroke to complete
-            grindDur = random.randint(1,999)
+            grindDur = random.randint(min_time,max_time)
+            while grindDur > vertDur:
+                grindDur = random.randint(min_time,max_time)
             #make sure vertical stroke distance is at least 250 between commands
             
             while abs(vertDist-last_vertDist)<.4:
@@ -66,17 +68,17 @@ def OSR2():
                 
             vertDist = vertDist * 1000
             #randomize a grinding motion
-            ranRotate = random.randint(1,10)
+            ranRotate = random.randint(1,2)
             if ranRotate == 1:
                 #make sure grind stroke alternates above / below .5 
                 if last_grindDist >=500:
-                    grindDist = random.randint(1,200)
+                    grindDist = random.randint(100,200)
                 else: 
                     grindDist = random.randint(800,999)
                 last_grindDist = grindDist
-                i = b'L0%dI%dR1%dI%d\n' % (vertDist, vertDur, grindDist, grindDur)
+                i = b'L0%dI%d&R1%dI%d\n' % (vertDist, vertDur, grindDist, grindDur)
             else:
-                i = b'L0%dI%d\n' % (vertDist, vertDur)
+                i = b'L0%dI%d&R1500I%d\n' % (vertDist, vertDur, vertDur)
             print(i)
             ser.write(i)
             #wait for motion to finish before sending next command
