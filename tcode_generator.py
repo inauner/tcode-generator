@@ -6,12 +6,12 @@ import sys
 #arduino COM port
 COM = 'COM4'
 #stroke range. must be between 1 and 9999, but there's a float bug with values under 1000
-min_range=1000
+min_range=2000
 max_range=9999
 #time between strokes. must be greater than or equal to 0
-min_time=400
+min_time=600
 max_time=1100
-    
+
     
 def OSR2():
     #no need to change below variables. used for position state
@@ -27,11 +27,11 @@ def OSR2():
                     grindDur = random.randint(min_time,max_time)
                 #make sure vertical stroke distance is at least x distance between commands
                 while abs(vertDist-last_vertDist)<.4:
-                    # print(vertDist,last_vertDist)
+                    print(vertDist,last_vertDist)
                     vertDist = float(random.randint(min_range,max_range))/10000
                 vertDist = vertDist * 10000
                 #randomize a grinding motion
-                ranRotate = random.randint(1,2)
+                ranRotate = random.randint(1,7) #give more weight to normal strokes
                 if ranRotate == 1:
                     #make sure grind stroke alternates above / below .5 
                     if last_grindDist >=500:
@@ -40,6 +40,16 @@ def OSR2():
                         grindDist = random.randint(800,9999)
                     last_grindDist = grindDist
                     i = b'L0%dI%d&R1%dI%d\n' % (vertDist, vertDur, grindDist, grindDur)
+                elif ranRotate == 2 and last_vertDist > .7:
+                    for i in range(3):
+                        delay2 = 250                       
+                        i = b'R10001I%d\n' % (delay2)
+                        ser.write(i)
+                        time.sleep(delay2/1000)
+                        i = b'R19999I%d\n' % (delay2)
+                        ser.write(i)    
+                        time.sleep(delay2/1000)
+                    i = b'L0%dI%d&R1500I%d\n' % (vertDist, vertDur, vertDur)
                 else:
                     i = b'L0%dI%d&R1500I%d\n' % (vertDist, vertDur, vertDur)
                 print(i)
@@ -50,8 +60,9 @@ def OSR2():
                 time.sleep(delay)
             #send back to default position on exit
             except KeyboardInterrupt:
-                i = b'L05R15\n'
+                i = b'L09R15\n'
                 ser.write(i)  
+                time.sleep(.3)
                 sys.exit(0)
 
 
