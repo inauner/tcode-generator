@@ -1,3 +1,5 @@
+*WARNING* I have found an issue where servos can overheat if left plugged in after script closure, some of the time. To prevent this, make sure to unplug the power from romeo mini after exiting a script.
+
 Change "COM=" line to match your COM port.
 ctrl+c to abort python scripts
 
